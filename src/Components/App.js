@@ -1,13 +1,15 @@
 import React from 'react';
 import {data} from '../data';
-import {addMovies, setShowFavourites, addFavourite, removeFromFavourites} from '../actions';
+import {addMovies, setShowFavourites} from '../actions';
 import Navbar from './Navbar';
 import MovieCard from './MovieCard';
 
 class App extends React.Component{
-  componentDidMount(){
+  componentDidMount() {
     const {store} =this.props;
-    
+    store.subscribe(() => {
+      this.forceUpdate();
+    });
     store.dispatch(addMovies(data));
   }
 
@@ -19,7 +21,8 @@ class App extends React.Component{
     const index =favourites.indexOf(movie);
 
     if(index !== -1){
-        return true;
+      //found the movie
+      return true;
     }
     return false;
 }
@@ -31,8 +34,8 @@ class App extends React.Component{
         <Navbar />
         <div className="main">
           <div className="tabs">
-            <div className= {`tab ${showFavourites?'':'active-tabs'}`} onClick={this.onChangeTab(false)}>Movies</div>
-            <div className={`tab ${showFavourites?'active-tabs':''}`} onClick={this.onChangeTab(true)}>Favourites</div>
+            <div className= {`tab ${showFavourites?'':'active-tabs'}`} onClick={() => this.onChangeTab(false)}>Movies</div>
+            <div className={`tab ${showFavourites?'active-tabs':''}`} onClick={() => this.onChangeTab(true)}>Favourites</div>
           </div>
           <div className="list">
             {displayMovies.map((movie,index) => (

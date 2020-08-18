@@ -1,5 +1,5 @@
 import React from 'react';
-import { addFavourite, removeFromFavourites,setShowFavourites,addMovies} from '../actions';
+import { addFavourite, removeFromFavourites} from '../actions';
 
 class MovieCard extends React.Component{
 
